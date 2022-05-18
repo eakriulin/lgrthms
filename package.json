@@ -1,0 +1,63 @@
+{
+  "name": "lgrthms",
+  "version": "1.0.0",
+  "description": "Algorithms and data structures you might want to use in your JavaScript and TypeScript projects 🧑‍💻",
+  "author": "Eugene Kriulin <eakriulin@gmail.com> (https://linkedin.com/in/eakriulin)",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf ./lib && ./node_modules/.bin/tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.34",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "keywords": [
+    "algorithms",
+    "data structures",
+    "computer science",
+    "cs",
+    "linked list",
+    "stack",
+    "queue",
+    "graph",
+    "binary tree",
+    "binary search tree",
+    "bst",
+    "heap",
+    "trie",
+    "binary search",
+    "find n largest",
+    "find n smallest",
+    "shifted binary search",
+    "search in sorted matrix",
+    "search for range",
+    "quick select",
+    "bubble sort",
+    "insertion sort",
+    "selection sort",
+    "quick sort",
+    "heap sort",
+    "radix sort",
+    "merge sort",
+    "depth-first search",
+    "breadth-first search",
+    "topological sort",
+    "dijkstra's algorithm",
+    "a algorithm",
+    "bsf shortest path",
+    "knuth morris pratt algorithm",
+    "levenshtein distance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eakriulin/lgrthms"
+  },
+  "bugs": {
+    "url": "https://github.com/eakriulin/lgrthms/issues"
+  },
+  "license": "MIT"
+}
