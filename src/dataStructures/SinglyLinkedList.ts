@@ -1,6 +1,6 @@
 class Node<T = any> {
     public value: T;
-    public next: Node<T>;
+    public next: Node<T> | null;
 
     constructor(value: T) {
         this.value = value;
@@ -69,13 +69,17 @@ export class SinglyLinkedList<T = any> {
     // Best: O(1) time | O(1) space
     // Average: O(n) time | O(1) space
     public insert(value: T, index?: number): Node<T> {
-        if (!this._head || index === 0) {
-            return this.setHead(value);
+        const lastIndex = this._length - 1;
+        if (index === undefined) {
+            index = lastIndex + 1;
         }
 
-        const lastIndex = this._length - 1;
-        if (index === undefined || index > lastIndex) {
-            index = lastIndex + 1;
+        if (index < 0 || index > lastIndex + 1) {
+            throw new Error('Cannot insert value, given index is out of bounds');
+        }
+
+        if (index === 0) {
+            return this.setHead(value);
         }
 
         const insertAfterIndex = index - 1;
@@ -172,7 +176,7 @@ export class SinglyLinkedList<T = any> {
         } else if (previous) {
             previous.next = node.next;
         } else {
-            throw new Error('Cannot remove a node, make sure to pass in valid parameters');
+            throw new Error('Cannot remove node, make sure to pass valid parameters');
         }
         this._length--;
     }

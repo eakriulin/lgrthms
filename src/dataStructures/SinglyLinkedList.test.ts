@@ -48,7 +48,7 @@ describe('SinglyLinkedList', () => {
         expect(lastValue).toBe(expectedLastValue);
     });
 
-    test('insert | insert at the index => head is not updated, last value is not updated, value is inserted, length is updated', () => {
+    test('insert | insert at an index => head is not updated, last value is not updated, value is inserted, length is updated', () => {
         const linkedList = new SinglyLinkedList<number>();
         const indexToInsertTo = 1;
         const expectedHeadValue = 0;
@@ -69,6 +69,40 @@ describe('SinglyLinkedList', () => {
 
         const insertedValue = linkedList.get(indexToInsertTo);
         expect(insertedValue).toBe(expectedInsertedValue);
+    });
+
+    test('insert | insert at a negative index => throw error', () => {
+        const linkedList = new SinglyLinkedList<number>();
+
+        linkedList.insert(0);
+        linkedList.insert(1);
+        linkedList.insert(3);
+
+        let error: Error;
+        try {
+            linkedList.insert(-1, -1);
+        } catch (e) {
+            error = e;
+        }
+
+        expect(error).toBeTruthy();
+    });
+
+    test('insert | insert at an index greater than length => throw error', () => {
+        const linkedList = new SinglyLinkedList<number>();
+
+        linkedList.insert(0);
+        linkedList.insert(1);
+        linkedList.insert(3);
+
+        let error: Error;
+        try {
+            linkedList.insert(10, 10);
+        } catch (e) {
+            error = e;
+        }
+
+        expect(error).toBeTruthy();
     });
 
     test('insertAfter | single node linked list, insert after first node => value is inserted, length is 2', () => {
@@ -166,7 +200,7 @@ describe('SinglyLinkedList', () => {
         expect(value).toBe(expectedValue);
     });
 
-    test('get | get at the negative index => undefined', () => {
+    test('get | get at a negative index => undefined', () => {
         const linkedList = new SinglyLinkedList<number>();
         const expectedValue = undefined;
 
@@ -180,7 +214,7 @@ describe('SinglyLinkedList', () => {
         expect(value).toBe(expectedValue);
     });
 
-    test('get | get at the index greater than the length => undefined', () => {
+    test('get | get at an index greater than the length => undefined', () => {
         const linkedList = new SinglyLinkedList<number>();
         const expectedValue = undefined;
 
@@ -250,7 +284,7 @@ describe('SinglyLinkedList', () => {
         expect(node).toBe(expectedNode);
     });
 
-    test('getNode | get node at the negative index => undefined', () => {
+    test('getNode | get node at a negative index => undefined', () => {
         const linkedList = new SinglyLinkedList<number>();
         const expectedNode = undefined;
 
@@ -264,7 +298,7 @@ describe('SinglyLinkedList', () => {
         expect(node).toBe(expectedNode);
     });
 
-    test('getNode | get node at the index greater than the length => undefined', () => {
+    test('getNode | get node at an index greater than the length => undefined', () => {
         const linkedList = new SinglyLinkedList<number>();
         const expectedNode = undefined;
 
@@ -497,7 +531,7 @@ describe('SinglyLinkedList', () => {
         expect(linkedList.length).toBe(expectedLength);
     });
 
-    test('removeAtIndex | remove at the negative index => no deletions are made', () => {
+    test('removeAtIndex | remove at a negative index => no deletions are made', () => {
         const linkedList = new SinglyLinkedList<string>();
         const expectedLength = 3;
 
@@ -510,7 +544,7 @@ describe('SinglyLinkedList', () => {
         expect(linkedList.length).toBe(expectedLength);
     });
 
-    test('removeAtIndex | remove at the index greater than the length => no deletions are made', () => {
+    test('removeAtIndex | remove at an index greater than the length => no deletions are made', () => {
         const linkedList = new SinglyLinkedList<string>();
         const expectedLength = 3;
 
