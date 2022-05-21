@@ -1,1 +1,1 @@
-export * from './dataStructures/SinglyLinkedList';
+export * from './dataStructures';
