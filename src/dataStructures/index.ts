@@ -5,3 +5,4 @@ export * from './Queue';
 export * from './Graph';
 export * from './BinaryTree';
 export * from './BinarySearchTree';
+export * from './MinHeap';
