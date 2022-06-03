@@ -6,3 +6,5 @@ export * from './Graph';
 export * from './BinaryTree';
 export * from './BinarySearchTree';
 export * from './MinHeap';
+export * from './MaxHeap';
+export * from './PriorityQueue';

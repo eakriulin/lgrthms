@@ -37,7 +37,7 @@ export class Heap<T = any> {
     }
 
     // O(1) time | O(1) space
-    public peek(): T {
+    public peek(): T | undefined {
         return this.heap[0];
     }
 
