@@ -8,3 +8,4 @@ export * from './BinarySearchTree';
 export * from './MinHeap';
 export * from './MaxHeap';
 export * from './PriorityQueue';
+export * from './Trie';
