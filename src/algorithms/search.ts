@@ -1,3 +1,4 @@
+// O(log(n)) time | O(1) space
 export function binarySearch<T, K>(
     array: T[],
     target: T | K,
@@ -21,4 +22,35 @@ export function binarySearch<T, K>(
             leftIdx = middleIdx + 1;
         }
     }
+}
+
+// O(nm) time | O(m) space — where
+// n is the length of the array
+// m is the number of elements to find
+export function findNSmallest<T, K>(array: T[], n: number, get?: (element: T) => K | T): T[] {
+    if (n === 0) {
+        return [];
+    }
+
+    if (array.length < n) {
+        throw new Error(`Cannot find ${n} smallest elements in array with length ${array.length}`);
+    }
+
+    const smallest: T[] = new Array(n).fill(null);
+    get = get ? get : (element: T): T => element;
+
+    for (const element of array) {
+        let currentElement = element;
+
+        for (let i = 0; i < smallest.length; i++) {
+            const currentSmallest = smallest[i];
+
+            if (currentSmallest === null || get(currentElement) < get(currentSmallest)) {
+                smallest[i] = currentElement;
+                currentElement = currentSmallest;
+            }
+        }
+    }
+
+    return smallest;
 }

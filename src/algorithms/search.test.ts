@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { binarySearch } from './search';
+import { binarySearch, findNSmallest } from './search';
 
 describe('binarySearch', () => {
     test('binarySearch | empty array, search for a value => not found', () => {
@@ -59,5 +59,51 @@ describe('binarySearch', () => {
         expect(binarySearch(objects, 107, object => object.value)).toBe(undefined);
         expect(binarySearch(objects, 108, object => object.value)).toBe(undefined);
         expect(binarySearch(objects, 109, object => object.value)).toBe(undefined);
+    });
+
+    test('findNSmallest |  array of length n, find 0 smallest => empty array', () => {
+        const array = [4, 2, 1, 5, 6];
+        expect(findNSmallest(array, 0)).toStrictEqual([]);
+    });
+
+    test('findNSmallest | array of length n, find n + 1 smallest => throw error', () => {
+        const array = [4, 2, 1, 5, 6];
+        let error: Error | undefined;
+
+        try {
+            findNSmallest(array, array.length + 1);
+        } catch (e) {
+            error = e;
+        }
+
+        expect(error).toBeTruthy();
+    });
+
+    test('findNSmallest | array of length n, find n smallest => sorted original array', () => {
+        const numbers = [4, 2, 1, 5, 6];
+        const smallestNumbers = findNSmallest(numbers, numbers.length);
+        expect(smallestNumbers).toStrictEqual([1, 2, 4, 5, 6]);
+
+        const strings = ['dddd', 'b', 'aa', 'eeeee', 'ffffff'];
+        const smallestStrings = findNSmallest(strings, strings.length, string => string.length);
+        expect(smallestStrings).toStrictEqual(['b', 'aa', 'dddd', 'eeeee', 'ffffff']);
+
+        const objects = [{ value: 4 }, { value: 2 }, { value: 1 }, { value: 5 }, { value: 6 }];
+        const smallestObjects = findNSmallest(objects, objects.length, object => object.value);
+        expect(smallestObjects).toStrictEqual([{ value: 1 }, { value: 2 }, { value: 4 }, { value: 5 }, { value: 6 }]);
+    });
+
+    test('findNSmallest | array of length n, find 3 smallest => array of length 3', () => {
+        const numbers = [4, 2, 1, 5, 6];
+        const smallestNumbers = findNSmallest(numbers, 3);
+        expect(smallestNumbers).toStrictEqual([1, 2, 4]);
+
+        const strings = ['dddd', 'b', 'aa', 'eeeee', 'ffffff'];
+        const smallestStrings = findNSmallest(strings, 3, string => string.length);
+        expect(smallestStrings).toStrictEqual(['b', 'aa', 'dddd']);
+
+        const objects = [{ value: 4 }, { value: 2 }, { value: 1 }, { value: 5 }, { value: 6 }];
+        const smallestObjects = findNSmallest(objects, 3, object => object.value);
+        expect(smallestObjects).toStrictEqual([{ value: 1 }, { value: 2 }, { value: 4 }]);
     });
 });
