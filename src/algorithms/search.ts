@@ -2,7 +2,7 @@
 export function binarySearch<T, K>(
     array: T[],
     target: T | K,
-    get?: (element: T) => K,
+    get?: (element: T) => T | K,
 ): T | undefined {
     let leftIdx = 0;
     let rightIdx = array.length - 1;
@@ -20,6 +20,44 @@ export function binarySearch<T, K>(
             rightIdx = middleIdx - 1;
         } else {
             leftIdx = middleIdx + 1;
+        }
+    }
+}
+
+// O(log(n)) time | O(1) space
+export function shiftedBinarySearch<T, K>(
+    array: T[],
+    target: T | K,
+    get?: (element: T) => T | K,
+): T | undefined  {
+    let leftIdx = 0;
+    let rightIdx = array.length - 1;
+
+    get = get ? get : (element: T): T => element;
+
+    while (leftIdx <= rightIdx) {
+        const middleIdx = Math.floor((leftIdx + rightIdx) / 2);
+        const middleValue = get(array[middleIdx]);
+
+        if (target === middleValue) {
+            return array[middleIdx];
+        }
+
+        const leftValue = get(array[leftIdx]);
+        const rightValue = get(array[rightIdx]);
+
+        if (leftValue <= middleValue) {
+            if (target < middleValue && target >= leftValue) {
+                rightIdx = middleIdx - 1;
+            } else {
+                leftIdx = middleIdx + 1;
+            }
+        } else {
+            if (target > middleValue && target <= rightValue) {
+                leftIdx = middleIdx + 1;
+            } else {
+                rightIdx = middleIdx - 1;
+            }
         }
     }
 }
