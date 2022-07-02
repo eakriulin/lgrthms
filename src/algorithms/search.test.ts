@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { binarySearch, findNSmallest } from './search';
+import { binarySearch, findNLargest, findNSmallest } from './search';
 
 describe('binarySearch', () => {
     test('binarySearch | empty array, search for a value => not found', () => {
@@ -79,7 +79,7 @@ describe('binarySearch', () => {
         expect(error).toBeTruthy();
     });
 
-    test('findNSmallest | array of length n, find n smallest => sorted original array', () => {
+    test('findNSmallest | array of length n, find n smallest => sorted (asc) original array', () => {
         const numbers = [4, 2, 1, 5, 6];
         const smallestNumbers = findNSmallest(numbers, numbers.length);
         expect(smallestNumbers).toStrictEqual([1, 2, 4, 5, 6]);
@@ -105,5 +105,51 @@ describe('binarySearch', () => {
         const objects = [{ value: 4 }, { value: 2 }, { value: 1 }, { value: 5 }, { value: 6 }];
         const smallestObjects = findNSmallest(objects, 3, object => object.value);
         expect(smallestObjects).toStrictEqual([{ value: 1 }, { value: 2 }, { value: 4 }]);
+    });
+
+    test('findNLargest |  array of length n, find 0 largest => empty array', () => {
+        const array = [4, 2, 1, 5, 6];
+        expect(findNLargest(array, 0)).toStrictEqual([]);
+    });
+
+    test('findNLargest | array of length n, find n + 1 largest => throw error', () => {
+        const array = [4, 2, 1, 5, 6];
+        let error: Error | undefined;
+
+        try {
+            findNLargest(array, array.length + 1);
+        } catch (e) {
+            error = e;
+        }
+
+        expect(error).toBeTruthy();
+    });
+
+    test('findNLargest | array of length n, find n largest => sorted (desc) original array', () => {
+        const numbers = [4, 2, 1, 5, 6];
+        const smallestNumbers = findNLargest(numbers, numbers.length);
+        expect(smallestNumbers).toStrictEqual([6, 5, 4, 2, 1]);
+
+        const strings = ['dddd', 'b', 'aa', 'eeeee', 'ffffff'];
+        const smallestStrings = findNLargest(strings, strings.length, string => string.length);
+        expect(smallestStrings).toStrictEqual(['ffffff', 'eeeee', 'dddd', 'aa', 'b']);
+
+        const objects = [{ value: 4 }, { value: 2 }, { value: 1 }, { value: 5 }, { value: 6 }];
+        const smallestObjects = findNLargest(objects, objects.length, object => object.value);
+        expect(smallestObjects).toStrictEqual([{ value: 6 }, { value: 5 }, { value: 4 }, { value: 2 }, { value: 1 }]);
+    });
+
+    test('findNLargest | array of length n, find 3 largest => array of length 3', () => {
+        const numbers = [4, 2, 6, 5, 6];
+        const smallestNumbers = findNLargest(numbers, 3);
+        expect(smallestNumbers).toStrictEqual([6, 6, 5]);
+
+        const strings = ['dddd', 'b', 'aaaaaa', 'eeeee', 'ffffff'];
+        const smallestStrings = findNLargest(strings, 3, string => string.length);
+        expect(smallestStrings).toStrictEqual(['aaaaaa', 'ffffff', 'eeeee']);
+
+        const objects = [{ value: 4 }, { value: 2 }, { value: 6 }, { value: 5 }, { value: 6 }];
+        const smallestObjects = findNLargest(objects, 3, object => object.value);
+        expect(smallestObjects).toStrictEqual([{ value: 6 }, { value: 6 }, { value: 5 }]);
     });
 });
