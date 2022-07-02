@@ -1,9 +1,18 @@
 // O(log(n)) time | O(1) space
 export function binarySearch<T, K>(
     array: T[],
-    target: T | K,
+    target: K,
+): T | undefined
+export function binarySearch<T, K>(
+    array: T[],
+    target: K,
+    get: (element: T) => K
+): T | undefined
+export function binarySearch<T, K>(
+    array: T[],
+    target: K,
     get?: (element: T) => T | K,
-): T | undefined {
+): T | undefined  {
     let leftIdx = 0;
     let rightIdx = array.length - 1;
 
@@ -27,7 +36,16 @@ export function binarySearch<T, K>(
 // O(log(n)) time | O(1) space
 export function shiftedBinarySearch<T, K>(
     array: T[],
-    target: T | K,
+    target: K,
+): T | undefined
+export function shiftedBinarySearch<T, K>(
+    array: T[],
+    target: K,
+    get: (element: T) => K
+): T | undefined
+export function shiftedBinarySearch<T, K>(
+    array: T[],
+    target: K,
     get?: (element: T) => T | K,
 ): T | undefined  {
     let leftIdx = 0;
