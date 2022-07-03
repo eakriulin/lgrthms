@@ -1,4 +1,4 @@
-import { swap } from "../utils/arrays";
+import { swap } from "../../utils/arrays";
 
 // Best: O(n) time | O(1) space
 // Avg: O(n) time | O(1) space
