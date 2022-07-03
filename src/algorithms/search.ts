@@ -141,3 +141,31 @@ export function findNLargest<T, K>(array: T[], n: number, get?: (element: T) => 
 
     return largest;
 }
+
+// O(nm) time | O(1) space — where
+// n is the number of rows
+// m is the number of columns
+export function searchInMatrix<T, K>(
+    matrix: T[][],
+    target: K,
+): T | undefined
+export function searchInMatrix<T, K>(
+    matrix: T[][],
+    target: K,
+    get: (element: T) => K,
+): T | undefined
+export function searchInMatrix<T, K>(
+    matrix: T[][],
+    target: K,
+    get?: (element: T) => T | K,
+): T | undefined {
+    get = get ? get : (element: T): T => element;
+
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            if (target === get(matrix[i][j])) {
+                return matrix[i][j];
+            }
+        }
+    }
+}
