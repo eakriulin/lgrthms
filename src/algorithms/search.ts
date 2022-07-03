@@ -204,3 +204,94 @@ export function searchInSortedMatrix<T, K>(
         }
     }
 }
+
+// O(log(n)) time | O(1) space
+export function searchForRange<T, K>(
+    array: T[],
+    target: K
+): [number, number]
+export function searchForRange<T, K>(
+    array: T[],
+    target: K,
+    get: (element: T) => K,
+): [number, number]
+export function searchForRange<T, K>(
+    array: T[],
+    target: K,
+    get?: (element: T) => T | K,
+): [number, number] {
+    get = get ? get : (element: T): T => element;
+    return [binarySearchFirstIndex(array, target, get), binarySearchLastIndex(array, target, get)];
+}
+
+function binarySearchFirstIndex<T, K>(
+    array: T[],
+    target: K,
+    get?: (element: T) => T | K,
+): number {
+    let leftIdx = 0;
+    let rightIdx = array.length - 1;
+
+    while (leftIdx <= rightIdx) {
+        const middleIdx = Math.floor((leftIdx + rightIdx) / 2);
+        const middleValue = get(array[middleIdx]);
+
+        if (target === middleValue) {
+            if (middleIdx === 0) {
+                return middleIdx;
+            }
+
+            const middlePreviousValue = get(array[middleIdx - 1]);
+            if (target === middlePreviousValue) {
+                rightIdx = middleIdx - 1;
+            } else {
+                return middleIdx;
+            }
+
+        }
+
+        if (target < middleValue) {
+            rightIdx = middleIdx - 1;
+        } else {
+            leftIdx = middleIdx + 1;
+        }
+    }
+
+    return -1;
+}
+
+function binarySearchLastIndex<T, K>(
+    array: T[],
+    target: K,
+    get?: (element: T) => T | K,
+): number {
+    let leftIdx = 0;
+    let rightIdx = array.length - 1;
+
+    while (leftIdx <= rightIdx) {
+        const middleIdx = Math.floor((leftIdx + rightIdx) / 2);
+        const middleValue = get(array[middleIdx]);
+
+        if (target === middleValue) {
+            if (middleIdx === array.length - 1) {
+                return middleIdx;
+            }
+
+            const middleNextValue = get(array[middleIdx + 1]);
+            if (target === middleNextValue) {
+                leftIdx = middleIdx + 1;
+            } else {
+                return middleIdx;
+            }
+
+        }
+
+        if (target < middleValue) {
+            rightIdx = middleIdx - 1;
+        } else {
+            leftIdx = middleIdx + 1;
+        }
+    }
+
+    return -1;
+}

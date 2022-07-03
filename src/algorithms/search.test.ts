@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { binarySearch, findNLargest, findNSmallest, searchInMatrix, searchInSortedMatrix, shiftedBinarySearch } from './search';
+import { binarySearch, findNLargest, findNSmallest, searchForRange, searchInMatrix, searchInSortedMatrix, shiftedBinarySearch } from './search';
 
 describe('binarySearch', () => {
     test('binarySearch | empty array, search for a value => undefined', () => {
@@ -346,5 +346,54 @@ describe('binarySearch', () => {
         expect(searchInSortedMatrix(objects, 400, object => object.value)).toBe(undefined);
         expect(searchInSortedMatrix(objects, 500, object => object.value)).toBe(undefined);
         expect(searchInSortedMatrix(objects, 600, object => object.value)).toBe(undefined);
+    });
+
+    test('searchForRange | empty array, search for a value range => [-1, -1]', () => {
+        const array = [];
+        expect(searchForRange(array, 0)).toStrictEqual([-1, -1]);
+        expect(searchForRange(array, 'a string')).toStrictEqual([-1, -1]);
+        expect(searchForRange(array, null)).toStrictEqual([-1, -1]);
+    });
+
+    test('searchForRange | sorted array, search for an existing value range => range', () => {
+        const numbers = [0, 1, 1, 13, 21, 21, 21, 21, 30, 30];
+        const strings = ['0', '1', '1', '13', '21', '21', '21', '21', '30', '30'];
+        const objects = [{ value: 0 }, { value: 1 }, { value: 1 }, { value: 13 }, { value: 21 }, { value: 21 }, { value: 21 }, { value: 21 }, { value: 30 }, { value: 30 }];
+
+        expect(searchForRange(numbers, 0)).toStrictEqual([0, 0]);
+        expect(searchForRange(numbers, 13)).toStrictEqual([3, 3]);
+        expect(searchForRange(numbers, 1)).toStrictEqual([1, 2]);
+        expect(searchForRange(numbers, 21)).toStrictEqual([4, 7]);
+        expect(searchForRange(numbers, 30)).toStrictEqual([8, 9]);
+
+        expect(searchForRange(strings, '0')).toStrictEqual([0, 0]);
+        expect(searchForRange(strings, '13')).toStrictEqual([3, 3]);
+        expect(searchForRange(strings, '1')).toStrictEqual([1, 2]);
+        expect(searchForRange(strings, '21')).toStrictEqual([4, 7]);
+        expect(searchForRange(strings, '30')).toStrictEqual([8, 9]);
+
+        expect(searchForRange(objects, 0, object => object.value)).toStrictEqual([0, 0]);
+        expect(searchForRange(objects, 13, object => object.value)).toStrictEqual([3, 3]);
+        expect(searchForRange(objects, 1, object => object.value)).toStrictEqual([1, 2]);
+        expect(searchForRange(objects, 21, object => object.value)).toStrictEqual([4, 7]);
+        expect(searchForRange(objects, 30, object => object.value)).toStrictEqual([8, 9]);
+    });
+
+    test('searchForRange | sorted array, search for a non-existing value range => [-1, -1]', () => {
+        const numbers = [0, 1, 1, 13, 21, 21, 21, 21, 30, 30];
+        const strings = ['0', '1', '1', '13', '21', '21', '21', '21', '30', '30'];
+        const objects = [{ value: 0 }, { value: 1 }, { value: 1 }, { value: 13 }, { value: 21 }, { value: 21 }, { value: 21 }, { value: 21 }, { value: 30 }, { value: 30 }];
+
+        expect(searchForRange(numbers, 100)).toStrictEqual([-1, -1]);
+        expect(searchForRange(numbers, 200)).toStrictEqual([-1, -1]);
+        expect(searchForRange(numbers, -10)).toStrictEqual([-1, -1]);
+
+        expect(searchForRange(strings, 'non')).toStrictEqual([-1, -1]);
+        expect(searchForRange(strings, 'existing')).toStrictEqual([-1, -1]);
+        expect(searchForRange(strings, 'string')).toStrictEqual([-1, -1]);
+
+        expect(searchForRange(objects, 300, object => object.value)).toStrictEqual([-1, -1]);
+        expect(searchForRange(objects, -20, object => object.value)).toStrictEqual([-1, -1]);
+        expect(searchForRange(objects, 400, object => object.value)).toStrictEqual([-1, -1]);
     });
 });
