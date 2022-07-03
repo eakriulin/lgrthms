@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { binarySearch, findNLargest, findNSmallest, searchForRange, searchInMatrix, searchInSortedMatrix, shiftedBinarySearch } from './search';
+import { binarySearch, findNLargest, findNSmallest, quickselectKthSmallest, searchForRange, searchInMatrix, searchInSortedMatrix, shiftedBinarySearch } from './search';
 
 describe('binarySearch', () => {
     test('binarySearch | empty array, search for a value => undefined', () => {
@@ -395,5 +395,35 @@ describe('binarySearch', () => {
         expect(searchForRange(objects, 300, object => object.value)).toStrictEqual([-1, -1]);
         expect(searchForRange(objects, -20, object => object.value)).toStrictEqual([-1, -1]);
         expect(searchForRange(objects, 400, object => object.value)).toStrictEqual([-1, -1]);
+    });
+
+    test('quickselectKthSmallest | array, k is out of scope => undefined', () => {
+        const array = [4, 2, 1, 5, 6];
+        expect(quickselectKthSmallest(array, -10)).toBe(undefined);
+        expect(quickselectKthSmallest(array, 0)).toBe(undefined);
+        expect(quickselectKthSmallest(array, 100)).toBe(undefined);
+    });
+
+    test('quickselectKthSmallest | array, k is in scope => k-th smallest value returned', () => {
+        const numbers = [4, 2, 1, 5, 6];
+        expect(quickselectKthSmallest(numbers, 1)).toBe(1);
+        expect(quickselectKthSmallest(numbers, 2)).toBe(2);
+        expect(quickselectKthSmallest(numbers, 3)).toBe(4);
+        expect(quickselectKthSmallest(numbers, 4)).toBe(5);
+        expect(quickselectKthSmallest(numbers, 5)).toBe(6);
+
+        const strings = ['dddd', 'b', 'aa', 'eeeee', 'ffffff'];
+        expect(quickselectKthSmallest(strings, 1, string => string.length)).toBe('b');
+        expect(quickselectKthSmallest(strings, 2, string => string.length)).toBe('aa');
+        expect(quickselectKthSmallest(strings, 3, string => string.length)).toBe('dddd');
+        expect(quickselectKthSmallest(strings, 4, string => string.length)).toBe('eeeee');
+        expect(quickselectKthSmallest(strings, 5, string => string.length)).toBe('ffffff');
+
+        const objects = [{ value: 4 }, { value: 2 }, { value: 1 }, { value: 5 }, { value: 6 }];
+        expect(quickselectKthSmallest(objects, 1, object => object.value)).toStrictEqual({ value: 1 });
+        expect(quickselectKthSmallest(objects, 2, object => object.value)).toStrictEqual({ value: 2 });
+        expect(quickselectKthSmallest(objects, 3, object => object.value)).toStrictEqual({ value: 4 });
+        expect(quickselectKthSmallest(objects, 4, object => object.value)).toStrictEqual({ value: 5 });
+        expect(quickselectKthSmallest(objects, 5, object => object.value)).toStrictEqual({ value: 6 });
     });
 });
