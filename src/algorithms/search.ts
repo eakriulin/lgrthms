@@ -169,3 +169,38 @@ export function searchInMatrix<T, K>(
         }
     }
 }
+
+// O(n + m) time | O(1) space — where
+// n is the number of rows
+// m is the number of columns
+export function searchInSortedMatrix<T, K>(
+    matrix: T[][],
+    target: K,
+): T | undefined
+export function searchInSortedMatrix<T, K>(
+    matrix: T[][],
+    target: K,
+    get: (element: T) => K,
+): T | undefined
+export function searchInSortedMatrix<T, K>(
+    matrix: T[][],
+    target: K,
+    get?: (element: T) => T | K,
+): T | undefined {
+    get = get ? get : (element: T): T => element;
+
+    let i = 0;
+    let j = matrix[i].length - 1;
+
+    while (i < matrix.length && j >= 0) {
+        if (target === get(matrix[i][j])) {
+            return matrix[i][j];
+        }
+
+        if (target < get(matrix[i][j])) {
+            j--;
+        } else {
+            i++;
+        }
+    }
+}
