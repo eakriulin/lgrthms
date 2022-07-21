@@ -51,6 +51,7 @@
     "quick sort",
     "heap sort",
     "radix sort",
+    "bytes sort",
     "merge sort",
     "depth-first search",
     "breadth-first search",
