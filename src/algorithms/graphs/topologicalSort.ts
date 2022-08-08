@@ -31,7 +31,7 @@ export function topologicalSort<T>(
     const sorted: T[] = [];
     for (const element of array) {
         const nodeId = get(element);
-        depthFirstTraverseAndPopulatedSortedArray(nodeId, graph, sorted);
+        depthFirstTraverseAndPopulateSortedArray(nodeId, graph, sorted);
     }
 
     return sorted;
@@ -57,7 +57,7 @@ function buildGraph<T>(
     return graph;
 }
 
-function depthFirstTraverseAndPopulatedSortedArray<T>(
+function depthFirstTraverseAndPopulateSortedArray<T>(
     nodeId: EntityId,
     graph: Graph<IGraphNodeValue<T>>,
     sorted: T[],
@@ -74,7 +74,7 @@ function depthFirstTraverseAndPopulatedSortedArray<T>(
 
     node.value.info.visiting = true;
     for (const neighborId in node.edges) {
-        depthFirstTraverseAndPopulatedSortedArray(neighborId, graph, sorted);
+        depthFirstTraverseAndPopulateSortedArray(neighborId, graph, sorted);
     }
 
     node.value.info.visiting = false;
