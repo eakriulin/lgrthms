@@ -17,9 +17,9 @@ interface IResultantPath {
 // e is the number of edges
 export function dijkstrasAlgorithm(startId: string, finishId: string, graph: Graph): IResultantPath {
     const nodeInfos: Record<string, INodeInfo> = {};
-    const nodeInfosHeap: MinHeap<INodeInfo> = new MinHeap<INodeInfo>();
+    const nodeInfosHeap: MinHeap<INodeInfo> = new MinHeap<INodeInfo>((a, b) => a.distance - b.distance);
 
-    const startInfo = { nodeId: startId, prevId: '', distance: 0 };
+    const startInfo: INodeInfo = { nodeId: startId, prevId: '', distance: 0 };
 
     nodeInfos[startId] = startInfo;
     nodeInfosHeap.insert(startInfo);
@@ -37,7 +37,7 @@ export function dijkstrasAlgorithm(startId: string, finishId: string, graph: Gra
             const totalDistance = currentDistance + distanceToNeighbor;
 
             if (nodeInfos[neighborId] === undefined || totalDistance < nodeInfos[neighborId].distance) {
-                const neighborInfo = { nodeId: neighborId, prevId: nodeInfo.nodeId, distance: totalDistance };
+                const neighborInfo: INodeInfo = { nodeId: neighborId, prevId: nodeInfo.nodeId, distance: totalDistance };
                 nodeInfos[neighborId] = neighborInfo;
                 nodeInfosHeap.insert(neighborInfo);
             }
