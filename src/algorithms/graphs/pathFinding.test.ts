@@ -59,6 +59,28 @@ describe('Path finding algorithms', () => {
         expect(dijkstrasAlgorithm(node0.id, node5.id, graph)).toStrictEqual({ path: [], distance: -1 });
     });
 
+    test('dijkstrasAlgorithm | invalid start and finish nodes => empty path and no distance are returned', () => {
+        const graph = new Graph<number>();
+
+        const node0 = graph.addNode(0, 0);
+        const node1 = graph.addNode(1, 1);
+        const node2 = graph.addNode(2, 2);
+        const node3 = graph.addNode(3, 3);
+        const node4 = graph.addNode(4, 4);
+        graph.addNode(5, 5);
+
+        graph.addEdge(node0.id, node1.id, 7);
+        graph.addEdge(node1.id, node2.id, 6);
+        graph.addEdge(node1.id, node3.id, 20);
+        graph.addEdge(node1.id, node4.id, 3);
+        graph.addEdge(node2.id, node3.id, 13);
+        graph.addEdge(node3.id, node4.id, 2);
+
+        expect(dijkstrasAlgorithm('nonExistingId', node1.id, graph)).toStrictEqual({ path: [], distance: -1 });
+        expect(dijkstrasAlgorithm(node0.id, 'nonExistingId', graph)).toStrictEqual({ path: [], distance: -1 });
+        expect(dijkstrasAlgorithm('nonExistingStartId', 'nonExistingFinishId', graph)).toStrictEqual({ path: [], distance: -1 });
+    });
+
     test('bfsShortestPath | directed acyclic graph with weighted edges => valid path and distance are returned', () => {
         const graph = new Graph<number>();
 
@@ -113,5 +135,27 @@ describe('Path finding algorithms', () => {
         expect(bfsShortestPath(node0.id, node3.id, graph)).toStrictEqual({ path: [node0.id, node1.id, node4.id, node3.id], distance: 12 });
         expect(bfsShortestPath(node0.id, node4.id, graph)).toStrictEqual({ path: [node0.id, node1.id, node4.id], distance: 10 });
         expect(bfsShortestPath(node0.id, node5.id, graph)).toStrictEqual({ path: [], distance: -1 });
+    });
+
+    test('bfsShortestPath | invalid start and finish nodes => empty path and no distance are returned', () => {
+        const graph = new Graph<number>();
+
+        const node0 = graph.addNode(0, 0);
+        const node1 = graph.addNode(1, 1);
+        const node2 = graph.addNode(2, 2);
+        const node3 = graph.addNode(3, 3);
+        const node4 = graph.addNode(4, 4);
+        graph.addNode(5, 5);
+
+        graph.addEdge(node0.id, node1.id, 7);
+        graph.addEdge(node1.id, node2.id, 6);
+        graph.addEdge(node1.id, node3.id, 20);
+        graph.addEdge(node1.id, node4.id, 3);
+        graph.addEdge(node2.id, node3.id, 13);
+        graph.addEdge(node3.id, node4.id, 2);
+
+        expect(bfsShortestPath('nonExistingId', node1.id, graph)).toStrictEqual({ path: [], distance: -1 });
+        expect(bfsShortestPath(node0.id, 'nonExistingId', graph)).toStrictEqual({ path: [], distance: -1 });
+        expect(bfsShortestPath('nonExistingStartId', 'nonExistingFinishId', graph)).toStrictEqual({ path: [], distance: -1 });
     });
 });

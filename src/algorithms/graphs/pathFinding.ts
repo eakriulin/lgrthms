@@ -20,6 +20,10 @@ export function dijkstrasAlgorithm(startId: string, finishId: string, graph: Gra
     const nodeInfos: Record<string, INodeInfo> = {};
     const nodeInfosHeap: MinHeap<INodeInfo> = new MinHeap<INodeInfo>((a, b) => a.distance - b.distance);
 
+    if (!graph.getNode(startId) || !graph.getNode(finishId)) {
+        return getResultantPath(finishId, nodeInfos);
+    }
+
     const startInfo: INodeInfo = { nodeId: startId, prevId: '', distance: 0 };
 
     nodeInfos[startId] = startInfo;
@@ -27,11 +31,8 @@ export function dijkstrasAlgorithm(startId: string, finishId: string, graph: Gra
 
     while (nodeInfosHeap.size > 0) {
         const nodeInfo = nodeInfosHeap.extract();
-        if (!nodeInfo) {
-            break;
-        }
-
         const node = graph.getNode(nodeInfo.nodeId);
+
         for (const neighborId in node.edges) {
             const currentDistance = nodeInfo.distance;
             const distanceToNeighbor = node.edges[neighborId];
@@ -54,6 +55,10 @@ export function dijkstrasAlgorithm(startId: string, finishId: string, graph: Gra
 export function bfsShortestPath(startId: string, finishId: string, graph: Graph): IResultantPath {
     const nodeInfos: Record<string, INodeInfo> = {};
     const queue = new Queue<INodeInfo>();
+
+    if (!graph.getNode(startId) || !graph.getNode(finishId)) {
+        return getResultantPath(finishId, nodeInfos);
+    }
 
     const startInfo: INodeInfo = { nodeId: startId, prevId: '', distance: 0 };
 
