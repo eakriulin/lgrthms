@@ -1,5 +1,6 @@
 import { Graph } from '../../dataStructures/Graph';
 import { MinHeap } from '../../dataStructures/MinHeap';
+import { Queue } from '../../dataStructures/Queue';
 
 interface INodeInfo {
     nodeId: string;
@@ -40,6 +41,38 @@ export function dijkstrasAlgorithm(startId: string, finishId: string, graph: Gra
                 const neighborInfo: INodeInfo = { nodeId: neighborId, prevId: nodeInfo.nodeId, distance: totalDistance };
                 nodeInfos[neighborId] = neighborInfo;
                 nodeInfosHeap.insert(neighborInfo);
+            }
+        }
+    }
+
+    return getResultantPath(finishId, nodeInfos);
+}
+
+// O(n + e) time | O(n) space — where
+// n is the number of nodes
+// e is the number of edges
+export function bfsShortestPath(startId: string, finishId: string, graph: Graph): IResultantPath {
+    const nodeInfos: Record<string, INodeInfo> = {};
+    const queue = new Queue<INodeInfo>();
+
+    const startInfo: INodeInfo = { nodeId: startId, prevId: '', distance: 0 };
+
+    nodeInfos[startId] = startInfo;
+    queue.enqueue(startInfo);
+
+    while (queue.size > 0) {
+        const nodeInfo = queue.dequeue();
+        const node = graph.getNode(nodeInfo.nodeId);
+
+        for (const neighborId in node.edges) {
+            const currentDistance = nodeInfo.distance;
+            const distanceToNeighbor = node.edges[neighborId];
+            const totalDistance = currentDistance + distanceToNeighbor;
+
+            if (nodeInfos[neighborId] === undefined || totalDistance < nodeInfos[neighborId].distance) {
+                const neighborInfo: INodeInfo = { nodeId: neighborId, prevId: nodeInfo.nodeId, distance: totalDistance };
+                nodeInfos[neighborId] = neighborInfo;
+                queue.enqueue(neighborInfo);
             }
         }
     }
