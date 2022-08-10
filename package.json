@@ -1,7 +1,7 @@
 {
   "name": "lgrthms",
-  "version": "1.0.0",
-  "description": "Algorithms and data structures you might want to use in your JavaScript and TypeScript projects 🧑‍💻",
+  "version": "1.0.1",
+  "description": "Algorithms and data structures for your JavaScript and TypeScript projects 🧑‍💻",
   "author": "Eugene Kriulin <eakriulin@gmail.com> (https://linkedin.com/in/eakriulin)",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
