@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Algorithms and data structures you might want to use in your JavaScript and TypeScript projects 🧑‍💻",
   "author": "Eugene Kriulin <eakriulin@gmail.com> (https://linkedin.com/in/eakriulin)",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": ["lib"],
   "scripts": {
     "build": "rm -rf ./lib && ./node_modules/.bin/tsc",
     "test": "jest"
