@@ -51,7 +51,7 @@ describe('PriorityQueue', () => {
     test('enqueue | enqueue with a negative priority => throw error', () => {
         const queue = new PriorityQueue<string>();
 
-        let error: Error;
+        let error: Error | undefined = undefined;
 
         try {
             queue.enqueue('anything', -1);

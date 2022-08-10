@@ -29,8 +29,8 @@ describe('DoublyLinkedList', () => {
 
         expect(linkedList.head).toBeTruthy();
         expect(linkedList.tail).toBeTruthy();
-        expect(linkedList.head.value).toBe(expectedValue);
-        expect(linkedList.tail.value).toBe(expectedValue);
+        expect(linkedList.head!.value).toBe(expectedValue);
+        expect(linkedList.tail!.value).toBe(expectedValue);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -45,8 +45,8 @@ describe('DoublyLinkedList', () => {
 
         expect(linkedList.head).toBeTruthy();
         expect(linkedList.tail).toBeTruthy();
-        expect(linkedList.head.value).toBe(expectedHeadValue);
-        expect(linkedList.tail.value).toBe(expectedTailValue);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
+        expect(linkedList.tail!.value).toBe(expectedTailValue);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -66,8 +66,8 @@ describe('DoublyLinkedList', () => {
 
         expect(node).toBe(nodeAtIndex);
         expect(node).toBe(linkedList.head);
-        expect(linkedList.head.value).toBe(expectedHeadValue);
-        expect(linkedList.tail.value).toBe(expectedTailValue);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
+        expect(linkedList.tail!.value).toBe(expectedTailValue);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -86,8 +86,8 @@ describe('DoublyLinkedList', () => {
         const nodeAtIndex = linkedList.getNode(2);
 
         expect(node).toBe(nodeAtIndex);
-        expect(linkedList.head.value).toBe(expectedHeadValue);
-        expect(linkedList.tail.value).toBe(expectedTailValue);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
+        expect(linkedList.tail!.value).toBe(expectedTailValue);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -106,8 +106,8 @@ describe('DoublyLinkedList', () => {
         const nodeAtIndex = linkedList.getNode(2);
 
         expect(node).toBe(nodeAtIndex);
-        expect(linkedList.head.value).toBe(expectedHeadValue);
-        expect(linkedList.tail.value).toBe(expectedTailValue);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
+        expect(linkedList.tail!.value).toBe(expectedTailValue);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -127,8 +127,8 @@ describe('DoublyLinkedList', () => {
 
         expect(node).toBe(nodeAtIndex);
         expect(node).toBe(linkedList.tail);
-        expect(linkedList.head.value).toBe(expectedHeadValue);
-        expect(linkedList.tail.value).toBe(expectedTailValue);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
+        expect(linkedList.tail!.value).toBe(expectedTailValue);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -139,7 +139,7 @@ describe('DoublyLinkedList', () => {
         linkedList.insert(1);
         linkedList.insert(2);
 
-        let error: Error;
+        let error: Error | undefined = undefined;
         try {
             linkedList.insert(-1, -1);
         } catch (e) {
@@ -156,7 +156,7 @@ describe('DoublyLinkedList', () => {
         linkedList.insert(1);
         linkedList.insert(2);
 
-        let error: Error;
+        let error: Error | undefined = undefined;
         try {
             linkedList.insert(10, 10);
         } catch (e) {
@@ -444,7 +444,7 @@ describe('DoublyLinkedList', () => {
 
         linkedList.insert({ nested: { value: '0' } });
         linkedList.insert({ nested: { value: '1' } });
-        linkedList.insert({ nested: { value: '2', optional: null } });
+        linkedList.insert({ nested: { value: '2', optional: undefined } });
 
         const value = linkedList.find(v => v.nested.optional);
 
@@ -588,8 +588,8 @@ describe('DoublyLinkedList', () => {
         linkedList.removeAtIndex(0);
 
         expect(linkedList.head).toBe(nodeAfter);
-        expect(linkedList.head.prev).toBe(null);
-        expect(linkedList.head.next).toBe(nodeNext);
+        expect(linkedList.head!.prev).toBe(null);
+        expect(linkedList.head!.next).toBe(nodeNext);
         expect(linkedList.length).toBe(expectedLength);
     });    
 
@@ -607,8 +607,8 @@ describe('DoublyLinkedList', () => {
         const node = linkedList.getNode(2);
 
         expect(node).toBe(nodeAfter);
-        expect(node.next).toBe(nodeNext);
-        expect(node.prev).toBe(nodeBefore);
+        expect(node!.next).toBe(nodeNext);
+        expect(node!.prev).toBe(nodeBefore);
         expect(linkedList.length).toBe(expectedLength);
     });
     
@@ -625,8 +625,8 @@ describe('DoublyLinkedList', () => {
         linkedList.removeAtIndex(4);
 
         expect(linkedList.tail).toBe(nodeBefore);
-        expect(linkedList.tail.prev).toBe(nodePrev);
-        expect(linkedList.tail.next).toBe(null);
+        expect(linkedList.tail!.prev).toBe(nodePrev);
+        expect(linkedList.tail!.next).toBe(null);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -672,8 +672,8 @@ describe('DoublyLinkedList', () => {
         linkedList.removeNode(nodeToRemove);
 
         expect(linkedList.head).toBe(nodeAfter);
-        expect(linkedList.head.prev).toBe(null);
-        expect(linkedList.head.next).toBe(nodeNext);
+        expect(linkedList.head!.prev).toBe(null);
+        expect(linkedList.head!.next).toBe(nodeNext);
         expect(linkedList.length).toBe(expectedLength);
     });    
 
@@ -691,8 +691,8 @@ describe('DoublyLinkedList', () => {
         const node = linkedList.getNode(2);
 
         expect(node).toBe(nodeAfter);
-        expect(node.next).toBe(nodeNext);
-        expect(node.prev).toBe(nodeBefore);
+        expect(node!.next).toBe(nodeNext);
+        expect(node!.prev).toBe(nodeBefore);
         expect(linkedList.length).toBe(expectedLength);
     });
     
@@ -709,8 +709,8 @@ describe('DoublyLinkedList', () => {
         linkedList.removeNode(nodeToRemove);
 
         expect(linkedList.tail).toBe(nodeBefore);
-        expect(linkedList.tail.prev).toBe(nodePrev);
-        expect(linkedList.tail.next).toBe(null);
+        expect(linkedList.tail!.prev).toBe(nodePrev);
+        expect(linkedList.tail!.next).toBe(null);
         expect(linkedList.length).toBe(expectedLength);
     });
 

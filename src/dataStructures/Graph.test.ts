@@ -50,7 +50,7 @@ describe('Graph', () => {
     test('addNode | invalid id => throw error', () => {
         const graph = new Graph<string>();
 
-        let error: Error;
+        let error: Error | undefined = undefined;
 
         try {
             graph.addNode('this is the value', { id: 'invalid id' } as any);
@@ -132,7 +132,7 @@ describe('Graph', () => {
         graph.addNode({ value: 1 }, 'id1');
         graph.addNode({ value: 2 }, 'id2');
 
-        let error: Error;
+        let error: Error | undefined = undefined;
 
         try {
             graph.addEdge('id1', 'nonExistingId');

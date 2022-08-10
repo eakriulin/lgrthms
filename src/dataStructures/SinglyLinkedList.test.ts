@@ -27,7 +27,7 @@ describe('SinglyLinkedList', () => {
         linkedList.insert(0);
 
         expect(linkedList.head).toBeTruthy();
-        expect(linkedList.head.value).toBe(expectedHeadValue);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -41,7 +41,7 @@ describe('SinglyLinkedList', () => {
         linkedList.insert(1);
 
         expect(linkedList.head).toBeTruthy();
-        expect(linkedList.head.value).toBe(expectedHeadValue);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
         expect(linkedList.length).toBe(expectedLength);
 
         const lastValue = linkedList.get(linkedList.length - 1);
@@ -61,7 +61,7 @@ describe('SinglyLinkedList', () => {
         linkedList.insert(1, indexToInsertTo);
 
         expect(linkedList.head).toBeTruthy();
-        expect(linkedList.head.value).toBe(expectedHeadValue);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
         expect(linkedList.length).toBe(expectedLength);
 
         const lastValue = linkedList.get(linkedList.length - 1);
@@ -78,7 +78,7 @@ describe('SinglyLinkedList', () => {
         linkedList.insert(1);
         linkedList.insert(3);
 
-        let error: Error;
+        let error: Error | undefined = undefined;
         try {
             linkedList.insert(-1, -1);
         } catch (e) {
@@ -95,7 +95,7 @@ describe('SinglyLinkedList', () => {
         linkedList.insert(1);
         linkedList.insert(3);
 
-        let error: Error;
+        let error: Error | undefined = undefined;
         try {
             linkedList.insert(10, 10);
         } catch (e) {
@@ -117,7 +117,7 @@ describe('SinglyLinkedList', () => {
         const node = linkedList.getNode(expectedIndex);
 
         expect(node).toBeTruthy();
-        expect(node.value).toBe(expectedValue);
+        expect(node!.value).toBe(expectedValue);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -135,9 +135,9 @@ describe('SinglyLinkedList', () => {
         const node = linkedList.getNode(expectedIndex);
 
         expect(node).toBeTruthy();
-        expect(node.value).toBe(expectedValue);
+        expect(node!.value).toBe(expectedValue);
         expect(firstNode.next).toBe(node);
-        expect(node.next).toBe(secondNode);
+        expect(node!.next).toBe(secondNode);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -331,7 +331,7 @@ describe('SinglyLinkedList', () => {
 
         linkedList.insert({ nested: { value: '0' } });
         linkedList.insert({ nested: { value: '1' } });
-        linkedList.insert({ nested: { value: '2', optional: null } });
+        linkedList.insert({ nested: { value: '2', optional: '' } });
 
         const value = linkedList.find(v => v.nested.optional);
 
@@ -490,8 +490,8 @@ describe('SinglyLinkedList', () => {
         linkedList.removeAtIndex(0);
 
         expect(linkedList.head).toBeTruthy();
-        expect(linkedList.head.value).toBe(expectedHeadValue);
-        expect(linkedList.head.next).toBe(expectedNextNode);
+        expect(linkedList.head!.value).toBe(expectedHeadValue);
+        expect(linkedList.head!.next).toBe(expectedNextNode);
         expect(linkedList.length).toBe(expectedLength);
     });
 
@@ -570,7 +570,7 @@ describe('SinglyLinkedList', () => {
 
         expect(linkedList.head).toBeTruthy();
         expect(linkedList.head).toBe(expectedHeadNode);
-        expect(linkedList.head.next).toBe(expectedNextNode);
+        expect(linkedList.head!.next).toBe(expectedNextNode);
         expect(linkedList.length).toBe(expectedLength);
     });
 

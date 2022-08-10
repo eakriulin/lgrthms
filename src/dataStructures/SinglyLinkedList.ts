@@ -135,7 +135,11 @@ export class SinglyLinkedList<T = any> {
     }
 
     // O(n) time | O(1) space
-    public removeNode(node: Node<T>): void {
+    public removeNode(node: Node<T> | null | undefined): void {
+        if (!node) {
+            return;
+        }
+
         let current = this._head;
         let previous = null;
 

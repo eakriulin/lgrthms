@@ -163,7 +163,7 @@ export class DoublyLinkedList<T = any> {
     }
 
     // O(1) time | O(1) space
-    public removeNode(node: Node<T>): void {
+    public removeNode(node: Node<T> | null | undefined): void {
         if (!node) {
             return;
         }

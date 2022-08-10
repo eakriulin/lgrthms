@@ -537,13 +537,15 @@ describe('BinarySearchTree', () => {
         bst.insert(1);
 
         expect(bst.size).toBe(5);
-        expect(bst.root.value).toBe(10);
+        expect(bst.root).toBeTruthy();
+        expect(bst.root!.value).toBe(10);
         expect(bst.contains(node5)).toBe(true);
 
         bst.remove(node10);
 
         expect(bst.size).toBe(4);
-        expect(bst.root.value).toBe(5);
+        expect(bst.root).toBeTruthy();
+        expect(bst.root!.value).toBe(5);
         expect(bst.contains(node5)).toBe(false);
     });
 
@@ -558,13 +560,15 @@ describe('BinarySearchTree', () => {
         bst.insert(12);
 
         expect(bst.size).toBe(6);
-        expect(bst.root.value).toBe(10);
+        expect(bst.root).toBeTruthy();
+        expect(bst.root!.value).toBe(10);
         expect(bst.contains(node15)).toBe(true);
 
         bst.remove(node10);
 
         expect(bst.size).toBe(5);
-        expect(bst.root.value).toBe(15);
+        expect(bst.root).toBeTruthy();
+        expect(bst.root!.value).toBe(15);
         expect(bst.contains(node15)).toBe(false);
     });
 
@@ -615,14 +619,16 @@ describe('BinarySearchTree', () => {
         const node12 = bst.insert(12);
 
         expect(bst.size).toBe(10);
-        expect(bst.root.value).toBe(10);
+        expect(bst.root).toBeTruthy();
+        expect(bst.root!.value).toBe(10);
         expect(node13.left).toBe(node12);
         expect(bst.contains(node12)).toBe(true);
         
         bst.remove(node10);
 
         expect(bst.size).toBe(9);
-        expect(bst.root.value).toBe(12);
+        expect(bst.root).toBeTruthy();
+        expect(bst.root!.value).toBe(12);
         expect(node13.left).toBe(null);
         expect(bst.contains(node12)).toBe(false);
     });
